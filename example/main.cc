@@ -14,6 +14,7 @@
 #include "nanovg_gl.h"
 
 #include "perf.h"
+#include "lightninglayout.h"
 
 #include <cassert>
 #include <string>
@@ -139,11 +140,7 @@ void mouseButtonCallback(int button, int state, float x, float y) {
   mouse_btn_y = y;
 }
 
-void mouseMoveCallback(float x, float y) {
-  //printf("mouse move, x: %.2f, y: %.2f\n", x, y);
-}
-
-int main(int argc, char** argv) {
+int main() {
   int width = 1024;
   int height = 600;
 
@@ -178,7 +175,6 @@ int main(int argc, char** argv) {
 #endif
 
   window->setMouseButtonCallback(mouseButtonCallback);
-  window->setMouseMoveCallback(mouseMoveCallback);
   checkErrors("mouse");
   window->setKeyboardCallback(keyboardCallback);
   checkErrors("keyboard");
@@ -215,13 +211,22 @@ int main(int argc, char** argv) {
 
     nvgBeginFrame(vg, width, height, width / (float)height);
 
+    nvgText(vg, 10, 100, "what2watch", NULL);
+
+    ll_element add_btn = {
+      .text = "Add Movie",
+      .width = 200
+    };
+
+    ll_render(vg, add_btn);
+
     if (mouse_btn) {
-      // emit mouse-button event here
+      // handle mouse-button event here
       mouse_btn = false;
     }
 
     if (keyboard_btn) {
-      // emit keyboard event here
+      // handle keyboard event here
       keyboard_btn = false;
     }
 
@@ -239,3 +244,7 @@ int main(int argc, char** argv) {
   return 0;
 }
 
+// render a tree of elements
+void ll_render(NVGcontext* vg, ll_element el) {
+  nvgText(vg, 10, 150, el.text, NULL);
+}

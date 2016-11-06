@@ -43,5 +43,11 @@ Visual Studio 2013 may work. To compile with Visual Studio 2013 use the followin
 
 ## License
 
-NanoCanvas example code is licensed under MIT license.
-NanoCanvas uses third party libraries. See `LICENSES` file for more details.
+what2watch is licensed under the MIT license.
+what2watch uses third party libraries, see `LICENSES` file for more details.
+
+## TODO
+
+* Port [lightning-layout](https://github.com/prust/lightning-layout) to C
+* Implement 1000-line indexed object storage library
+* Drop in websocket library for communication with server

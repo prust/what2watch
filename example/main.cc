@@ -211,14 +211,18 @@ int main() {
 
     nvgBeginFrame(vg, width, height, width / (float)height);
 
-    nvgText(vg, 10, 100, "what2watch", NULL);
-
-    ll_element add_btn = {
+    ll_element children[1] = {{
       .text = "Add Movie",
-      .width = 200
+      .num_children = 0
+    }};
+
+    ll_element h1 = {
+      .text = "what2watch",
+      .num_children = 1,
+      .children = children
     };
 
-    ll_render(vg, add_btn);
+    ll_render(vg, h1);
 
     if (mouse_btn) {
       // handle mouse-button event here
@@ -247,4 +251,7 @@ int main() {
 // render a tree of elements
 void ll_render(NVGcontext* vg, ll_element el) {
   nvgText(vg, 10, 150, el.text, NULL);
+  ll_element* child = el.children;
+  for (int i = 0; i < el.num_children; i++)
+    ll_render(vg, *child++);
 }
